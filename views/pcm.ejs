@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EngiMate - MHT CET PCM Counseling</title>
+    <link href="https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/css/pcm.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">Engi<span>Mate</span></a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <!-- Search Container -->
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input" id="collegeSearch" placeholder="Search for colleges...">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+            
+            <!-- Chat Icon Container (Separate) -->
+            <div class="chat-icon-container">
+                <div class="chat-icon" id="chatIcon">
+                    <i class="fas fa-comments"></i>
+                    <span class="chat-tooltip">Ask AI Assistant</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="college-section">
+            <h2 class="section-title">Top Engineering Colleges</h2>
+            <div class="swiper collegeSwiper">
+                <div class="swiper-wrapper">
+                    <!-- College Cards will be dynamically loaded here -->
+                    <div class="swiper-slide" onclick="viewCollegeDetails(16006)">
+                        <div class="college-card">
+                            <img src="/assets/coep.jpg" alt="COEP" class="college-image">
+                            <h3 class="college-name">College of Engineering, Pune (COEP)</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹1.5 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide" onclick="viewCollegeDetails(3012)">
+                        <div class="college-card">
+                            <img src="/assets/vjti.jpg" alt="VJTI" class="college-image">
+                            <h3 class="college-name">Veermata Jijabai Technological Institute (VJTI)</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹1.2 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide" onclick="viewCollegeDetails(6271)">
+                        <div class="college-card">
+                            <img src="/assets/pict.webp" alt="PICT" class="college-image">
+                            <h3 class="college-name">Pune Institute of Computer Technology (PICT)</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.6</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹1.8 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide" onclick="viewCollegeDetails(3215)">
+                        <div class="college-card">
+                            <img src="/assets/spit.jpg" alt="SPIT" class="college-image">
+                            <h3 class="college-name">Bhartiya Vidya Bhavan's Sardar Patel Institute of Technology (SPIT)</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.5</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹2.0 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide" onclick="viewCollegeDetails(6276)">
+                        <div class="college-card">
+                            <img src="/assets/cummins.jpg" alt="Cummins" class="college-image">
+                            <h3 class="college-name">MKSSS's Cummins College of Engineering for Women</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.5</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹2.0 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide" onclick="viewCollegeDetails(3036)">
+                        <div class="college-card">
+                            <img src="/assets/ict.jpg" alt="ICT" class="college-image">
+                            <h3 class="college-name">Institute of Chemical Technology (ICT)</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.5</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹2.0 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide" onclick="viewCollegeDetails(6007)">
+                        <div class="college-card">
+                            <img src="/assets/walchand sangli.jpg" alt="WCE" class="college-image">
+                            <h3 class="college-name">Walchand College of Engineering (WCE)</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Sangli, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.4</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹1.1 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide" onclick="viewCollegeDetails(6273)">
+                        <div class="college-card">
+                            <img src="/assets/vit.webp" alt="VIT" class="college-image">
+                            <h3 class="college-name">Bansilal Ramnath Agarawal Charitable Trust's Vishwakarma Institute of Technology (VIT)</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.5</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹2.0 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide" onclick="viewCollegeDetails(6175)">
+                        <div class="college-card">
+                            <img src="/assets/pccoe.jpeg" alt="PCCOE" class="college-image">
+                            <h3 class="college-name">Pimpri Chinchwad Education Trust, Pimpri Chinchwad College of Engineering (PCCOE)</h3>
+                            <p class="college-location"><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra</p>
+                            <!-- <div class="college-details">
+                                <div class="college-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.5</span>
+                                </div>
+                                <p class="college-fees">Approx. Fees: ₹2.0 Lakhs/year</p>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <!-- <div class="swiper-pagination"></div> -->
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">Our Tools & Features</h2>
+            <div class="features-grid">
+               
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="feature-title">Top Colleges</h3>
+                    <p class="feature-desc">Discover the top engineering colleges in your city. </p>
+                    <button class="feature-btn" id="topCollgesPCM">Explore</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-list-check"></i>
+                    </div>
+                    <h3 class="feature-title">Branch-wise Cutoffs</h3>
+                    <p class="feature-desc">View cutoff trends for different branches across top colleges.</p>
+                    <button class="feature-btn" id="branchCutoffs">View Cutoffs</button>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="feature-title">College Predictor</h3>
+                    <p class="feature-desc">Predict colleges based on your MHT CET percentile.</p>
+                    <button class="feature-btn" id="collegePredictorPCM">Predict Now</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="feature-title">Preference List</h3>
+                    <p class="feature-desc">Generate Preference list based on your rank.</p>
+                    <button class="feature-btn" id="preferenceListPCM">Generate Now</button>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-bottom">
+                <p>&copy; 2025 EngiMate. All rights reserved. | Designed with ❤️ for students</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Popup -->
+    <div class="chatbot-popup" id="chatbotPopup">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div>
+                    <h2><i class="fas fa-robot"></i> EngiMate Assistant</h2>
+                    <div class="status">
+                        <div class="status-dot"></div>
+                        Online - Ready to help
+                    </div>
+                </div>
+                <button class="close-chat" id="closeChatButton">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be loaded here -->
+            </div>
+            
+            <div class="chat-input">
+                <div class="input-container">
+                    <input type="text" id="messageInput" placeholder="Type your message..." />
+                    <button id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="/js/pcm.js"></script>
+</body>
+</html>
