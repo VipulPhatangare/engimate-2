@@ -916,28 +916,85 @@ nav {
         contrast(1.2);
 }
 
-/* Tooltip */
+/* Tooltip - Always Visible with Rotating Border */
 .chat-tooltip {
     position: absolute;
-    bottom: -45px;
+    bottom: -65px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #1a3a8f 0%, #4a90e2 100%);
     color: white;
     padding: 10px 15px;
-    border-radius: 8px;
+    border-radius: 1.1rem;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    opacity: 1;
+    pointer-events: auto;
     box-shadow: 0 4px 15px rgba(26, 58, 143, 0.4);
     z-index: 10;
+    border: none;
+    cursor: pointer;
+    outline: none;
 }
 
-.chat-icon:hover .chat-tooltip {
-    opacity: 1;
+/* Perfect rotating border container */
+.chat-tooltip .border-rotator {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 1.1rem;
+    padding: 6px;
+    z-index: 1;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Perfect seamless rotating gradient */
+.chat-tooltip .rotating-colors {
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    background: conic-gradient(
+        from 0deg,
+        #00f8f1 0%,
+        #00d0ff 8%,
+        #00b4f8 16%,
+        #0099ff 24%,
+        #0077ff 32%,
+        #0055ff 40%,
+        #5b2ff7 48%,
+        #8a2be2 56%,
+        #a855f7 64%,
+        #c084fc 72%,
+        #e879f9 80%,
+        #00c3ff 88%,
+        #00f8f1 96%,
+        #00f8f1 100%
+    );
+    filter: blur(10px);
+    animation: perfectRotate 4s linear infinite;
+}
+
+@keyframes perfectRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Optional: Add a subtle background glow container */
@@ -992,7 +1049,7 @@ nav {
     }
     
     .chat-tooltip {
-        bottom: -40px;
+        bottom: -55px;
         font-size: 12px;
         padding: 8px 12px;
     }
@@ -1011,7 +1068,7 @@ nav {
     }
     
     .chat-tooltip {
-        bottom: -35px;
+        bottom: -50px;
         font-size: 11px;
         padding: 6px 10px;
     }
