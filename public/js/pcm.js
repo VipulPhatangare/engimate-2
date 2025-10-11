@@ -362,6 +362,12 @@ class Chatbot {
         this.popup.classList.add('show');
         this.isOpen = true;
         
+        // Hide chat icon when popup is open
+        const chatIconContainer = document.querySelector('.chat-icon-container');
+        if (chatIconContainer) {
+            chatIconContainer.classList.add('hidden');
+        }
+        
         // Add chat-open class to body for mobile styling
         document.body.classList.add('chat-open');
         
@@ -388,6 +394,12 @@ class Chatbot {
     closeWindow() {
         this.popup.classList.remove('show');
         this.isOpen = false;
+        
+        // Show chat icon when popup is closed
+        const chatIconContainer = document.querySelector('.chat-icon-container');
+        if (chatIconContainer) {
+            chatIconContainer.classList.remove('hidden');
+        }
         
         // Remove chat-open class from body
         document.body.classList.remove('chat-open');
