@@ -362,25 +362,87 @@ class Chatbot {
         this.popup.classList.add('show');
         this.isOpen = true;
         
+        // Add chat-open class to body for mobile styling
+        document.body.classList.add('chat-open');
+        
         // Focus input after animation completes
         setTimeout(() => {
-            this.input.focus();
+            if (window.innerWidth <= 767) {
+                // On mobile, scroll to bottom and focus
+                this.scrollToBottom();
+                // Delay focus slightly on mobile to handle keyboard animation
+                setTimeout(() => {
+                    this.input.focus();
+                }, 100);
+            } else {
+                this.input.focus();
+            }
         }, 300);
         
-        // Disable background scrolling when chat is open
-        document.body.style.overflow = 'hidden';
+        // Handle viewport changes on mobile
+        if (window.innerWidth <= 767) {
+            this.handleMobileViewport();
+        }
     }
 
     closeWindow() {
         this.popup.classList.remove('show');
         this.isOpen = false;
         
+        // Remove chat-open class from body
+        document.body.classList.remove('chat-open');
+        
         // Re-enable background scrolling when chat is closed
         document.body.style.overflow = '';
-    }    handleResize() {
+        
+        // Blur input to hide mobile keyboard
+        if (this.input) {
+            this.input.blur();
+        }
+    }
+    
+    handleResize() {
         if (this.isOpen) {
             // Always disable background scrolling when chat is open
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('chat-open');
+        }
+    }
+    
+    handleMobileViewport() {
+        // Handle keyboard appearance on mobile
+        const initialViewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        
+        if (window.visualViewport) {
+            const handleViewportChange = () => {
+                const currentHeight = window.visualViewport.height;
+                const heightDifference = initialViewportHeight - currentHeight;
+                
+                if (heightDifference > 150) {
+                    // Keyboard is likely open
+                    this.popup.classList.add('keyboard-open');
+                    this.scrollToBottom();
+                } else {
+                    // Keyboard is likely closed
+                    this.popup.classList.remove('keyboard-open');
+                }
+            };
+            
+            window.visualViewport.addEventListener('resize', handleViewportChange);
+            
+            // Clean up listener when chat closes
+            const originalClose = this.closeWindow.bind(this);
+            this.closeWindow = () => {
+                window.visualViewport.removeEventListener('resize', handleViewportChange);
+                originalClose();
+            };
+        }
+    }
+    
+    scrollToBottom() {
+        if (this.messages) {
+            setTimeout(() => {
+                this.messages.scrollTop = this.messages.scrollHeight;
+            }, 100);
         }
     }
     
@@ -506,7 +568,18 @@ class Chatbot {
         messageDiv.appendChild(timeDiv);
         
         this.messages.appendChild(messageDiv);
-        this.scrollToBottom();
+        
+        // Enhanced scrolling for mobile
+        if (window.innerWidth <= 767) {
+            // Double scroll for mobile to ensure visibility
+            setTimeout(() => {
+                this.scrollToBottom();
+                // Extra scroll after a delay to handle keyboard
+                setTimeout(() => this.scrollToBottom(), 200);
+            }, 50);
+        } else {
+            this.scrollToBottom();
+        }
         
         if (useTypingEffect && sender === 'bot') {
             this.typeMessage(contentDiv, text).then(() => {
