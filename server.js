@@ -180,6 +180,10 @@ app.use('/prefernceListPCM',prefernceListPCMRoutes);
 const branchwiseCutoffPCMRoutes = require('./routes/branchwiseCutoffPCMroute'); 
 app.use('/branchwiseCutoffPCM',branchwiseCutoffPCMRoutes);
 
+app.get('/api/activate', (req, res) => {
+  res.json({ message: 'Hello from the server!' });
+});
+
 app.listen(port,()=>{
     console.log('server listing at port 9000');
 })
