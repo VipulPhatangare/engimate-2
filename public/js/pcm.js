@@ -616,19 +616,16 @@ class Chatbot {
         this.sendBtn.disabled = true;
         
         const typingDiv = document.createElement('div');
-        typingDiv.className = 'message bot-message typing-indicator';
+        typingDiv.className = 'message bot-message';
         typingDiv.id = 'typing-indicator';
         
         const contentDiv = document.createElement('div');
-        contentDiv.className = 'message-content';
+        contentDiv.className = 'message-content typing-bubble';
         contentDiv.innerHTML = `
-            <div class="typing-indicator">
-                <span>EngiMate Assistant is typing</span>
-                <div class="typing-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         `;
         

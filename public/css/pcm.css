@@ -1533,6 +1533,19 @@ nav {
 }
 
 /* Typing indicator */
+.typing-bubble {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px !important;
+    max-width: 60px !important;
+    padding: 16px 20px !important;
+    background: rgba(26, 58, 143, 0.4) !important;
+    border: 1px solid #2a5fc9 !important;
+    border-radius: 18px !important;
+    border-bottom-left-radius: 4px !important;
+}
+
 .typing-indicator {
     display: flex;
     align-items: center;
@@ -1543,12 +1556,13 @@ nav {
 
 .typing-dots {
     display: flex;
-    gap: 3px;
+    gap: 5px;
+    align-items: center;
 }
 
 .typing-dots span {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #4a90e2;
     animation: typingPulse 1.4s ease-in-out infinite both;
@@ -1764,14 +1778,20 @@ nav {
     }
     
     /* Enhanced Typing Indicator for Mobile */
+    .typing-bubble {
+        min-width: 55px !important;
+        max-width: 55px !important;
+        padding: 14px 18px !important;
+    }
+    
     .typing-indicator {
         font-size: 11px !important;
         gap: 6px;
     }
     
     .typing-dots span {
-        width: 5px;
-        height: 5px;
+        width: 7px;
+        height: 7px;
     }
     
     /* Improved Scrollbar for Mobile */
