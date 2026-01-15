@@ -232,6 +232,21 @@
         </div>
     </footer>
 
+    <!-- Clear Chat Confirmation Modal -->
+    <div class="confirm-modal" id="confirmClearModal">
+        <div class="confirm-content">
+            <div class="confirm-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Clear Chat History?</h3>
+            <p>This will permanently delete all your chat messages. This action cannot be undone.</p>
+            <div class="confirm-actions">
+                <button class="confirm-btn cancel-btn" id="cancelClearBtn">Cancel</button>
+                <button class="confirm-btn delete-btn" id="confirmClearBtn">Clear Chat</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Chatbot Popup -->
     <div class="chatbot-popup" id="chatbotPopup">
         <div class="chat-container">
@@ -243,9 +258,14 @@
                         Online - Ready to help
                     </div>
                 </div>
-                <button class="close-chat" id="closeChatButton">
-                    <i class="fas fa-times"></i>
-                </button>
+                <div class="header-actions">
+                    <button class="clear-chat" id="clearChatButton" title="Clear chat history">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                    <button class="close-chat" id="closeChatButton" title="Close chat">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
             
             <div class="chat-messages" id="chatMessages">

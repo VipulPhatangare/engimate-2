@@ -307,6 +307,7 @@ class Chatbot {
         this.popup = document.getElementById('chatbotPopup');
         this.icon = document.getElementById('chatIcon');
         this.closeBtn = document.getElementById('closeChatButton');
+        this.clearBtn = document.getElementById('clearChatButton');
         this.messages = document.getElementById('chatMessages');
         this.input = document.getElementById('messageInput');
         this.sendBtn = document.getElementById('sendButton');
@@ -319,6 +320,9 @@ class Chatbot {
     bindEvents() {
         this.icon.addEventListener('click', () => this.toggleWindow());
         this.closeBtn.addEventListener('click', () => this.closeWindow());
+        this.clearBtn.addEventListener('click', () => {
+            this.showClearConfirmation();
+        });
         this.sendBtn.addEventListener('click', () => this.sendMessage());
         this.input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -792,9 +796,38 @@ class Chatbot {
         localStorage.removeItem(this.storageKey);
         this.messages.innerHTML = '';
         this.sessionId = this.generateSessionId();
-        this.addMessage("Chat history cleared. How can I help you today?", 'bot', true);
+        this.addMessage("How can I help you today?", 'bot', true);
     }
-
+    showClearConfirmation() {
+        const modal = document.getElementById('confirmClearModal');
+        const confirmBtn = document.getElementById('confirmClearBtn');
+        const cancelBtn = document.getElementById('cancelClearBtn');
+        
+        modal.classList.add('show');
+        
+        const handleConfirm = () => {
+            this.clearChatHistory();
+            modal.classList.remove('show');
+            confirmBtn.removeEventListener('click', handleConfirm);
+            cancelBtn.removeEventListener('click', handleCancel);
+        };
+        
+        const handleCancel = () => {
+            modal.classList.remove('show');
+            confirmBtn.removeEventListener('click', handleConfirm);
+            cancelBtn.removeEventListener('click', handleCancel);
+        };
+        
+        confirmBtn.addEventListener('click', handleConfirm);
+        cancelBtn.addEventListener('click', handleCancel);
+        
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                handleCancel();
+            }
+        });
+    }
     typeMessage(container, text, speed = 50) {
         return new Promise((resolve) => {
             // Create a temporary div to hold the content

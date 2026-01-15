@@ -28,7 +28,8 @@ const port = process.env.PORT
 const {User} = require('./database/schema');
 
 // n8n webhook URL for chatbot
-const N8N_WEBHOOK_URL = 'https://sythomind.app.n8n.cloud/webhook/chat';
+// const N8N_WEBHOOK_URL = 'https://n8n.srv1162962.hstgr.cloud/webhook-test/chat-bot';
+const N8N_WEBHOOK_URL = 'https://n8n.srv1162962.hstgr.cloud/webhook/chat-bot';
 
 // Store conversation context (in production, use a database)
 const conversationContext = new Map();
