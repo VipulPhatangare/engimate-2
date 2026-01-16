@@ -3,9 +3,13 @@ require('dotenv').config();
 const path = require('path');
 const cors = require('cors');
 const axios = require('axios');
+const dns = require('dns');
 const app = express();
 const {connectDB} = require('./database/db');
 const session = require('express-session');
+
+// Force IPv4 for DNS resolution to avoid IPv6 connection issues
+dns.setDefaultResultOrder('ipv4first');
 
 
 const MongoStore = require('connect-mongo');
@@ -34,6 +38,41 @@ const N8N_WEBHOOK_URL = 'https://n8n.srv1162962.hstgr.cloud/webhook/chat-bot';
 // Store conversation context (in production, use a database)
 const conversationContext = new Map();
 
+// Retry function for webhook calls
+async function callWebhookWithRetry(url, payload, maxRetries = 3) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            console.log(`Attempting webhook call (attempt ${attempt}/${maxRetries})...`);
+            const response = await axios.post(url, payload, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                timeout: 30000, // Reduced from 100s to 30s
+                family: 4 // Force IPv4
+            });
+            console.log('Webhook call successful');
+            return response;
+        } catch (error) {
+            console.error(`Attempt ${attempt} failed:`, error.code || error.message);
+            
+            // Don't retry on certain errors
+            if (error.response && error.response.status < 500) {
+                throw error; // Client errors shouldn't be retried
+            }
+            
+            // If this was the last attempt, throw the error
+            if (attempt === maxRetries) {
+                throw error;
+            }
+            
+            // Wait before retrying (exponential backoff)
+            const delay = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
+            console.log(`Waiting ${delay}ms before retry...`);
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+}
+
 // Chatbot API endpoint
 app.post('/api/chat', async (req, res) => {
     try {
@@ -60,13 +99,8 @@ app.post('/api/chat', async (req, res) => {
             timestamp: new Date().toISOString()
         };
 
-        // Send full context to n8n webhook
-        const n8nResponse = await axios.post(N8N_WEBHOOK_URL, n8nPayload, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            timeout: 100000
-        });
+        // Send full context to n8n webhook with retry logic
+        const n8nResponse = await callWebhookWithRetry(N8N_WEBHOOK_URL, n8nPayload);
 
         // Extract response from n8n - handle different response formats
         let botReply;
@@ -124,11 +158,27 @@ app.post('/api/chat', async (req, res) => {
 });
 
 // Health check endpoint for chatbot
-app.get('/api/health', (req, res) => {
+app.get('/api/health', async (req, res) => {
+    let webhookStatus = 'unknown';
+    
+    // Check if n8n webhook is reachable
+    try {
+        await axios.get(N8N_WEBHOOK_URL.replace('/webhook/', '/webhook-test/'), { 
+            timeout: 5000,
+            family: 4,
+            validateStatus: () => true // Accept any status code
+        });
+        webhookStatus = 'reachable';
+    } catch (error) {
+        webhookStatus = `unreachable: ${error.code || error.message}`;
+    }
+    
     res.json({ 
         status: 'OK', 
         timestamp: new Date().toISOString(),
-        service: 'EngiMate Engineering Admission Chatbot API'
+        service: 'EngiMate Engineering Admission Chatbot API',
+        webhookStatus: webhookStatus,
+        webhookUrl: N8N_WEBHOOK_URL
     });
 });
 
